@@ -1,0 +1,11 @@
+pandas
+numpy
+torch
+transformers
+bertopic
+umap-learn
+wordcloud
+matplotlib
+arabic_reshaper
+python-bidi
+nltk
