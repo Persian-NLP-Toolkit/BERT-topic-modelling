@@ -2,6 +2,7 @@ from PreprocessPipeline import PreprocessPipeline
 
 pipeline = PreprocessPipeline()
 
+
 def safe_preprocess(text):
     try:
         tokens, _ = pipeline.preprocess_pipeline(text)

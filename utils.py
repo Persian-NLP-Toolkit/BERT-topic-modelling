@@ -2,10 +2,11 @@ from collections import Counter
 from nltk import ngrams
 import math
 
+
 def calculate_ngram_weights(df_info, topic_model):
     uni = Counter()
     total_uni = 0
-    for toks in df_info['tokens']:
+    for toks in df_info["tokens"]:
         uni.update(toks)
         total_uni += len(toks)
 
@@ -14,12 +15,12 @@ def calculate_ngram_weights(df_info, topic_model):
     max_tid = max(topic_ids) if topic_ids else 0
 
     for tid in topic_ids:
-        docs = df_info[df_info['Topic'] == tid]['tokens'].tolist()
+        docs = df_info[df_info["Topic"] == tid]["tokens"].tolist()
         tf = Counter()
         for toks in docs:
             for gram in ngrams(toks, 2):
                 tf[gram] += 1
-        factor = (max_tid - tid + 1)
+        factor = max_tid - tid + 1
         for gram, cnt in tf.items():
             if cnt < 3:
                 continue
