@@ -1,4 +1,6 @@
-from PreprocessPipeline import PreprocessPipeline
+# from PreprocessPipeline import PreprocessPipeline
+class PreprocessPipeline:
+    pass
 
 pipeline = PreprocessPipeline()
 
