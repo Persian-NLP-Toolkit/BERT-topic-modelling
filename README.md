@@ -103,7 +103,9 @@ bert-wordcloud generate data.txt -o - --json terms.json
 | `--stopwords FILE` | | extra stopwords (comma or newline separated) |
 | `--json FILE` | | write the weighted terms as JSON |
 | `--top N` | | print the top N terms |
-| `--width` `--height` `--background` `--colormap` `--font` `--transparent` | | image styling (any matplotlib colormap; bundled font: Gandom) |
+| `--width` `--height` `--background` `--colormap` `--font` `--transparent` | | image styling (default palette matches the web UI, or any matplotlib colormap; bundled font: Gandom) |
+| `--scale` | `2` | resolution multiplier — the PNG is `width×scale` by `height×scale` |
+| `--prefer-horizontal` | `1.0` | share of horizontal words (lower it to allow vertical ones) |
 
 `bert-wordcloud serve [--host --port --reload]` starts the API.
 `python main.py data.csv` still works as an alias for `generate`.
