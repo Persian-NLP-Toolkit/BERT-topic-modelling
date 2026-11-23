@@ -9,9 +9,13 @@ export interface ExportInput {
   fontWeight: number;
 }
 
+/** Largest canvas area browsers reliably allow (Safari's limit is ~16.7M px). */
+const MAX_CANVAS_PIXELS = 16_000_000;
+
 /** Draw the laid-out cloud onto a canvas (the web font is already loaded in the page). */
-export function drawToCanvas(input: ExportInput, scale = 2): HTMLCanvasElement {
+export function drawToCanvas(input: ExportInput, requestedScale = 2): HTMLCanvasElement {
   const { words, width, height, background, fontWeight } = input;
+  const scale = Math.max(1, Math.min(requestedScale, Math.sqrt(MAX_CANVAS_PIXELS / (width * height))));
   const canvas = document.createElement("canvas");
   canvas.width = Math.round(width * scale);
   canvas.height = Math.round(height * scale);
@@ -24,6 +28,8 @@ export function drawToCanvas(input: ExportInput, scale = 2): HTMLCanvasElement {
     ctx.fillRect(0, 0, width, height);
   }
   ctx.translate(width / 2, height / 2);
+  ctx.imageSmoothingQuality = "high";
+  ctx.direction = "rtl";
   ctx.textAlign = "center";
   ctx.textBaseline = "alphabetic";
   for (const w of words) {
@@ -60,7 +66,7 @@ export function buildSvg(input: ExportInput): string {
     )
     .join("\n    ");
   return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+<svg xmlns="http://www.w3.org/2000/svg" text-rendering="geometricPrecision" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
   ${bg}
   <g transform="translate(${width / 2},${height / 2})" font-family="${FONT_FAMILY}, Tahoma, sans-serif" font-weight="${fontWeight}">
     ${texts}

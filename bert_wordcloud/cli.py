@@ -61,6 +61,8 @@ def _cmd_generate(args: argparse.Namespace) -> int:
             colormap=args.colormap,
             font_path=args.font,
             transparent=args.transparent,
+            scale=args.scale,
+            prefer_horizontal=args.prefer_horizontal,
         )
         print(f"✅ Saved {out}", file=sys.stderr)
 
@@ -123,7 +125,22 @@ def build_parser() -> argparse.ArgumentParser:
     g.add_argument("--width", type=int, default=1600)
     g.add_argument("--height", type=int, default=900)
     g.add_argument("--background", default="white")
-    g.add_argument("--colormap", default="tab20", help="Any matplotlib colormap name")
+    g.add_argument(
+        "--colormap",
+        help="Any matplotlib colormap name (default: the web UI's vivid palette)",
+    )
+    g.add_argument(
+        "--scale",
+        type=float,
+        default=2,
+        help="Resolution multiplier: the PNG is width*scale x height*scale (default: %(default)s)",
+    )
+    g.add_argument(
+        "--prefer-horizontal",
+        type=float,
+        default=1.0,
+        help="Share of horizontal words, 0..1 (default: %(default)s = all horizontal)",
+    )
     g.add_argument("--font", help="Path to a TTF font (default: bundled Gandom)")
     g.add_argument("--transparent", action="store_true", help="Transparent background")
     g.set_defaults(func=_cmd_generate)

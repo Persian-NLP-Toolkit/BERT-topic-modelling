@@ -481,6 +481,9 @@ button.link:hover {
   position: absolute;
   inset: 0;
   display: block;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 .cloud-word {
   cursor: pointer;

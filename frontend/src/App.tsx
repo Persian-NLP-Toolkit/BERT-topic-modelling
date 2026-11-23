@@ -171,7 +171,7 @@ export default function App() {
   const base = fileBaseName(file?.name);
 
   const savePng = async () => {
-    const canvas = cloudRef.current?.toCanvas(3);
+    const canvas = cloudRef.current?.toCanvas(4);
     if (!canvas) return;
     downloadBlob(await canvasToBlob(canvas), `${base}.png`);
   };
@@ -185,7 +185,7 @@ export default function App() {
     downloadBlob(new Blob([data], { type: "application/json" }), `${base}.json`);
   };
   const copyImage = async () => {
-    const canvas = cloudRef.current?.toCanvas(2);
+    const canvas = cloudRef.current?.toCanvas(3);
     if (!canvas) return;
     try {
       await copyPng(canvas);
